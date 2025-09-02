@@ -1,4 +1,6 @@
-import {FaUser, FaLock} from 'react-icons/fa'
+import {FaUser, FaLock} from 'react-icons/fa';
+
+import  Swal  from 'sweetalert2';
 
 import { useState } from "react";
 
@@ -20,17 +22,22 @@ const Login = () => {
             });
 
             if (response.ok) {
-                throw new Error("Login bem-sucedido!");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login realizado com sucesso!',
+                });
             }
-
+            
             const data = await response.json();
-            console.log("Login bem sucedido:", data);
 
             localStorage.setItem("token", data.token);
 
         } catch (error) {
-            console.error("Erro no login:", error);
-            alert("Usuário ou senha inválidos. Tente novamente.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro no login',
+                text: 'Usuário ou senha inválidos. Tente novamente.',
+            });
         }
     }
 
